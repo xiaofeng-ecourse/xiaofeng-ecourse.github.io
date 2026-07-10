@@ -1,51 +1,204 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>晓峰电商 - 课程目录</title>
-    <style>
-        /* 内嵌CSS样式，不用额外文件，省事 */
-        *{margin:0;padding:0;box-sizing:border-box;font-family:微软雅黑}
-        body{background:#f5f7fa;padding:30px}
-        .header{text-align:center;margin-bottom:40px}
-        .header h1{color:#222;margin-bottom:10px}
-        .header p{color:#666}
-        .course-box{max-width:1000px;margin:0 auto}
-        .course-item{background:#fff;padding:20px;border-radius:10px;margin-bottom:15px;box-shadow:0 2px 8px #eee}
-        .course-item h3{color:#0066cc;margin-bottom:8px}
-        .course-item p{color:#555;line-height:1.6}
-        .course-item a{display:inline-block;margin-top:10px;color:#fff;background:#0066cc;padding:6px 16px;border-radius:6px;text-decoration:none}
-    </style>
+<meta charset="UTF-8">
+<title>峰哥电商课程目录查询系统</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Microsoft YaHei,sans-serif;}
+body{height:100vh;display:flex;flex-direction:column;}
+/* 顶部搜索栏（匹配截图黄色边框） */
+.top-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid #eee;}
+.top-bar h2{font-size:28px;font-weight:normal;color:#111;}
+.search-wrap{position:relative;}
+#search{width:360px;padding:10px 14px;border:2px solid #ffb300;border-radius:6px;font-size:16px;outline:none;background:#fff;}
+.search-tip{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#ccc;font-size:14px;pointer-events:none;}
+/* 主体左右分栏 */
+.wrap{display:flex;flex:1;overflow:hidden;}
+/* 左侧树形目录（仅一二级） */
+.left{width:280px;border-right:1px solid #eee;background:#fff;overflow-y:auto;padding:12px;}
+.tree-item{margin:6px 0;cursor:pointer;white-space:nowrap;}
+.tree-row{display:flex;align-items:center;padding:6px 8px;border-radius:4px;}
+.tree-row:hover{background:#f0f4fc;}
+.tree-row.active{background:#d0def7;}
+.indent{width:18px;display:inline-block;}
+.toggle{width:18px;text-align:center;color:#666;user-select:none;}
+.folder{color:#d49000;margin:0 6px;}
+/* 右侧详情列表 */
+.right{flex:1;overflow-y:auto;padding:16px;}
+.list-item{padding:10px 12px;border-bottom:1px solid #f0f0f0;font-size:16px;}
+.empty-tip{font-size:24px;color:#aaa;text-align:center;padding:80px 0;}
+/* 隐藏不匹配项 */
+.hide{display:none !important;}
+</style>
 </head>
 <body>
-    <div class="header">
-        <h1>晓峰电商 全套运营课程</h1>
-        <p>淘宝店铺运营、自动化工具、财税实操课程目录</p>
+<div class="top-bar">
+    <h2>文件目录管理</h2>
+    <div class="search-wrap">
+        <input type="text" id="search" placeholder="">
+     
     </div>
+</div>
 
-    <div class="course-box">
-        <!-- 课程1 -->
-        <div class="course-item">
-            <h3>1. 淘宝新店基础运营课</h3>
-            <p>包含开店流程、商品上架、主图详情制作、基础流量获取、店铺基础设置全套教程</p>
-            <a href="shop-base.html">查看课程详情</a>
-        </div>
+<div class="wrap">
+    <div class="left" id="treeBox"></div>
+    <div class="right" id="listBox"></div>
+</div>
 
-        <!-- 课程2 -->
-        <div class="course-item">
-            <h3>2. 影刀RPA自动化实操课</h3>
-            <p>自动化采集、批量上架、飞书多维表格数据同步、千牛后台自动化流程搭建</p>
-            <a href="rpa-auto.html">查看课程详情</a>
-        </div>
+<script>
+// ========== 已替换为你表格里的课程目录数据 ==========
+const dirData = [
+    {
+        name: "「CYM-5239」一人公司IP搞钱大课",
+        id: "cym5239",
+        children: [
+            {
+                name: "课程资料",
+                id: "cym-doc",
+                thirdList: [
+                    { name: "课件516刘思毅杭州大课分享.pdf" },
+                    { name: "课件5.17群响杭州大课 赛维 .pptx" },
+                    { name: "课件5.16杭州大课toby周六分享.pdf" }
+                ]
+            },
+            {
+                name: "【先看】重要课程学习说明.png",
+                id: "cym-readme",
+                thirdList: []
+            }
+        ]
+    }
+];
+// =====================================================
 
-        <!-- 课程3 -->
-        <div class="course-item">
-            <h3>3. 个体户财税申报实操</h3>
-            <p>小规模增值税申报、定期定额/查账征收区别、电子税务局全流程操作教程</p>
-            <a href="tax-lesson.html">查看课程详情</a>
-        </div>
+const treeBox = document.getElementById("treeBox");
+const listBox = document.getElementById("listBox");
+const searchInput = document.getElementById("search");
+let currentSelectId = "";
 
-        <!-- 可自行复制增加更多课程 -->
-    </div>
+// 递归渲染左侧一二级目录
+function renderTree(arr, parentDom, level=0){
+    arr.forEach(item=>{
+        const hasSub = item.children && item.children.length>0;
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "tree-item";
+        itemDiv.dataset.id = item.id;
+        itemDiv.dataset.name = item.name;
+
+        const row = document.createElement("div");
+        row.className = "tree-row";
+        row.innerHTML = `<span class="indent" style="width:${level*18}px"></span>`;
+        const toggle = document.createElement("span");
+        toggle.className = "toggle";
+        toggle.textContent = hasSub ? "▶" : "";
+        row.innerHTML += `<span class="folder">📁</span><span>${item.name}</span>`;
+        itemDiv.appendChild(row);
+
+        if(hasSub){
+            const childWrap = document.createElement("div");
+            childWrap.className = "tree-child";
+            childWrap.style.display = "none";
+            itemDiv.appendChild(childWrap);
+            renderTree(item.children, childWrap, level+1);
+        }
+        parentDom.appendChild(itemDiv);
+
+        // 点击目录，右侧展示该目录下三级文件
+        row.onclick = ()=>{
+            document.querySelectorAll(".tree-row").forEach(r=>r.classList.remove("active"));
+            row.classList.add("active");
+            currentSelectId = item.id;
+            renderRight(item.thirdList || []);
+            // 展开/折叠子目录
+            if(hasSub){
+                const wrap = itemDiv.querySelector(".tree-child");
+                if(wrap.style.display === "none"){
+                    wrap.style.display = "block";
+                    toggle.textContent = "▼";
+                }else{
+                    wrap.style.display = "none";
+                    toggle.textContent = "▶";
+                }
+            }
+        }
+    })
+}
+
+// 渲染右侧文件列表
+function renderRight(fileArr){
+    listBox.innerHTML = "";
+    if(fileArr.length === 0){
+        listBox.innerHTML = "<div class='empty-tip'>该目录下无三级文件</div>";
+        return;
+    }
+    fileArr.forEach(f=>{
+        const div = document.createElement("div");
+        div.className = "list-item";
+        div.textContent = "📁 " + f.name;
+        div.dataset.file = f.name.toLowerCase();
+        listBox.appendChild(div);
+    })
+}
+
+// 全局搜索核心逻辑（支持一/二/三级全部检索）
+searchInput.addEventListener("input", function(){
+    const keyword = this.value.trim().toLowerCase();
+    const matchTreeIds = new Set();
+    const globalMatchFiles = [];
+
+    // 递归扫描，同时记录所有父级目录ID
+    function scanDir(arr, parentIdList=[]){
+        arr.forEach(item=>{
+            const newParentList = [...parentIdList, item.id];
+            // 1. 当前目录名称匹配，把自身+所有父级全部加入可见列表
+            if(item.name.toLowerCase().includes(keyword)){
+                newParentList.forEach(id => matchTreeIds.add(id));
+            }
+            // 2. 三级文件匹配，把文件所属二级+一级全部加入可见列表
+            if(item.thirdList){
+                item.thirdList.forEach(file=>{
+                    if(file.name.toLowerCase().includes(keyword)){
+                        globalMatchFiles.push(file);
+                        newParentList.forEach(id => matchTreeIds.add(id));
+                    }
+                })
+            }
+            // 递归扫描二级子目录
+            if(item.children) scanDir(item.children, newParentList);
+        })
+    }
+    scanDir(dirData);
+
+    // 清空关键词，恢复原始页面
+    if(!keyword){
+        document.querySelectorAll(".tree-item").forEach(el=>el.classList.remove("hide"));
+        renderRight(dirData[0].children[0].thirdList);
+        return;
+    }
+
+    // 控制左侧目录显示/隐藏
+    document.querySelectorAll(".tree-item").forEach(el=>{
+        const id = el.dataset.id;
+        el.classList.toggle("hide", !matchTreeIds.has(id));
+        // 自动展开匹配目录的子容器
+        if(matchTreeIds.has(id)){
+            const childWrap = el.querySelector(".tree-child");
+            if(childWrap){
+                childWrap.style.display = "block";
+                const toggle = childWrap.previousElementSibling.querySelector(".toggle");
+                if(toggle) toggle.textContent = "▼";
+            }
+        }
+    })
+
+    // 右侧展示所有匹配到的三级文件
+    renderRight(globalMatchFiles);
+})
+
+// 页面初始化
+renderTree(dirData, treeBox);
+renderRight(dirData[0].children[0].thirdList);
+document.querySelector(".tree-row").classList.add("active");
+</script>
 </body>
 </html>
