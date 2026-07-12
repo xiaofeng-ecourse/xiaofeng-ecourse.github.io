@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>晓峰电商资料目录</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Microsoft YaHei,sans-serif;}
+body{background:#fff;padding:20px;}
+
+/* 居中标题 */
+h1{
+    text-align:center;
+    margin:30px 0;
+    font-size:32px;
+    color:#222;
+    font-weight:600;
+}
+
+/* 使用说明文字 */
+.tip-text{
+    width:95%;
+    margin:0 auto 20px;
+    font-size:15px;
+    color:#555;
+    line-height:1.6;
+}
+
+/* 搜索栏容器：输入框+按钮横向排列 */
+.search-wrap{
+    display:flex;
+    gap:10px;
+    max-width:100%;
+    margin:0 auto 30px;
+}
+#pageSearch{
+    flex:1;
+    padding:14px 16px;
+    border:2px solid #ffb300;
+    border-radius:6px;
+    font-size:18px;
+    outline:none;
+}
+#searchBtn{
+    padding:0 24px;
+    background:#ffb300;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+}
+#searchBtn:hover{
+    background:#ffc107;
+}
+
+/* 飞书折叠代码块 */
+.feishu-code-block{
+  width: 95%;
+  background: #f7f8fa;
+  border-radius: 0px;
+  padding: 1px 5px;
+  margin: 3px 12px;
+  cursor: pointer;
+}
+.feishu-code-header{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.feishu-arrow{
+  font-size: 10px;
+  color: #121212;
+  width: 15px;
+  transition: transform 0.2s;
+}
+.feishu-arrow.open{
+  transform: rotate(90deg);
+}
+.feishu-title{
+  font-size: 14px;
+  color: #333;
+  font-weight: normal;
+}
+.feishu-code-content{
+  margin-top: 1px;
+  padding-top: 1px;
+  border-top: 1px solid #e5e7eb;
+  white-space: pre-wrap;
+  font-family: Consolas,monospace;
+  font-size: 12px;
+  display: none;
+}
+.feishu-code-content.show{
+  display: block;
+}
+/* 无匹配提示 */
+.empty-tip{
+    font-size:18px;
+    color:#999;
+    text-align:center;
+    margin:40px 0;
+    display:none;
+}
+</style>
+</head>
+<body>
+<h1>晓峰电商资料目录</h1>
+
+<div class="tip-text">
+<strong>使用方法：</strong>在下面的搜索框内输入课程名称或关键词点击搜索，然后点击课程前面的▶即可查看对应课程的内容介绍及目录（此处只是记录，真实文件购买后会在百度网盘里获取）
+</div>
+
+<div class="search-wrap">
+    <input type="text" id="pageSearch" placeholder="">
+    <button id="searchBtn">搜索</button>
+</div>
+
+<!-- 仅唯一一层courseList，所有课程放内部 -->
+<div id="courseList">
+    <!-- 课程1 -->
+    <div class="feishu-code-block" data-title="淘宝自动发货模版" onclick="toggleBlock(this)">
+      <div class="feishu-code-header">
+        <span class="feishu-arrow">▶</span>
+        <span class="feishu-title">AI 视频素材实战，从脚本到成片，掌握 AI 视频素材生产全流程5377</span>
+      </div>
+      <div class="feishu-code-content">
+
+├── 项目资料重要说明【必看先看】
+│   ├── 网盘拉新注册绑定.png
+│   ├── 风险与服务说明.pdf
+│   ├── 免费领网创工具箱[1000+].txt
+├── 飞书文档内的视频
+│   ├── 1-1_97a845ea208683fc5b59281ca9da94cd_raw.mp4
+│   ├── 38-40_kling_20260415_作品_男生逐渐离开镜头_女_4640_0.mp4
+│   ├── 35-37_最终确定版本！@.mp4
+│   ├── 9-9_改后.mp4
+│   ├── 36-38_jimeng-2026-04-15-8593-电影级写实，低角度特写跟随运镜。前一秒，在人潮拥挤的现代机场航站楼，一个装得极度....mp4
+│   ├── 18-20_kling_20260410_动作控制__217_0.mp4
+│   ├── 13-13_4月9日 (2)-1.mp4
+│   ├── 20-22_4月10日123123.mp4
+│   ├── 6-6_cee6b47ada84e95298c59ed4b04f6b80_raw.mp4
+│   ├── 17-19_6_Source.mp4
+│   ├── 12-12_6_SwitchX (2).mp4
+│   ├── 32-34_确定版本.mp4
+│   ├── 14-14_4月9日 (2)-1.mp4
+│   ├── 15-15_kling_20260409_动作控制__6058_0 (1).mp4
+│   ├── 3-3_kling_20260401_动作控制__4609_0 (2).mp4
+│   ├── 23-25_正放-1.mp4
+│   ├── 8-8_改前.mp4
+│   ├── 19-21_4月10日123123.mp4
+│   ├── 27-29_改完成品_SwitchX.mp4
+│   ├── 30-32_确定版本.mp4
+│   ├── 28-30_改后2.mp4
+│   ├── 10-10_6_Source.mp4
+│   ├── 16-18_6_Source.mp4
+│   ├── 11-11_6_Source.mp4
+│   ├── 34-36_最终修改之后的视频.mp4
+│   ├── 7-7_改前.mp4
+│   ├── 5-5_4月9日-1.mp4
+│   ├── 29-31_QQ20260410-175816.mp4
+│   ├── 2-2_动作模仿-1.mp4
+│   ├── 33-35_提示词生成视频.mp4
+│   ├── 22-24_参考视频2.mp4
+│   ├── 4-4_4月9日-1.mp4
+│   ├── 31-33_提示词生成视频.mp4
+│   ├── 24-26_倒放-1.mp4
+│   ├── 37-39_jimeng-2026-04-15-7176-镜头微微向前推进，慢动作。行李箱的拉链突然无法承受压力，瞬间猛烈断裂爆开。箱体向....mp4
+│   ├── 21-23_最终版.mp4
+│   ├── 26-28_改完成品.mp4
+│   ├── 25-27_改后.mp4
+├── 阿笠Ai课程.txt
+
+      </div>
+    </div>
+
+    <!-- 新增课程2（小红书虚拟项目特训班） -->
+    <div class="feishu-code-block" data-title="小红书虚拟项目特训班9.0，AI原创PPT技术全跑通，单单品店月纯利润几个W" onclick="toggleBlock(this)">
+      <div class="feishu-code-header">
+        <span class="feishu-arrow">▶</span>
+        <span class="feishu-title">小红书虚拟项目特训班9.0，AI原创PPT技术全跑通，单单品店月纯利润几个W</span>
+      </div>
+      <div class="feishu-code-content">
+小红书虚拟项目特训班9.0
+针对小红书平台规则调整，对课程进行全面升级，确保我们操作虚拟项的效果。
+接下来操作小红书虚拟项目的核心，就是借助AI来操作。
+从AI原创资料、AI二创资料、AI原创笔记，到AI帮我们来原创符合搜索排名的原创笔记。
+这些操作，现在AI都可以帮我们来完成，并且这套流程已经全部跑通，专业的AI提示词，已经全部优化好，直接拿来就可以出原创稿。
+下面有案例和AI提示词演示，直接解决新手操作虚拟最大的难点。
+不会自己原创资料和原创笔记。
+原创资料解决侵权和版权问题，让我们能够长期操作虚拟项目。
+原创笔记是解决平台打击同质化内容，让我们发布笔记能够获得高流量、高权重。
+课程全面升级
+这次课程更新的核心，就是全面拥抱AI，让AI来辅助我们操作虚拟项目，提高我们的效率（10倍以上）。
+很多学员参加课程，经常问，新手能不能操作，现在项目的整个操作流程，都全面接入AI。
+从开始的选品库打造、原创PPT模板，到笔记原创，我们都可以让AI来完成。
+并且针对小红书虚拟新规，也给出解决方案，让新店也能正常操作虚拟。
+9.0课程更新：
+011.2026小红书虚拟操作（9.0升级）
+101.了解PPT市场和高收益
+102.借助AI打造选品库（附提示词）
+103.AI原创教案+PPT大纲+逐字稿（附提示词）
+104.PPT模板二创全流程（附提示词）
+      </div>
+    </div>
+</div>
+
+<div class="empty-tip" id="emptyTip">未找到匹配课程</div>
+
+<script>
+// 折叠展开
+function toggleBlock(el){
+  const arrow = el.querySelector(".feishu-arrow");
+  const content = el.querySelector(".feishu-code-content");
+  arrow.classList.toggle("open");
+  content.classList.toggle("show");
+}
+
+const searchInput = document.getElementById("pageSearch");
+const searchBtn = document.getElementById("searchBtn");
+const emptyTip = document.getElementById("emptyTip");
+const allBlocks = document.querySelectorAll(".feishu-code-block");
+
+// 点击按钮执行搜索
+searchBtn.addEventListener("click", doSearch);
+// 回车也可搜索
+searchInput.addEventListener("keydown", e=>{
+    if(e.key === "Enter") doSearch();
+})
+
+function doSearch(){
+    const keyword = searchInput.value.trim().toLowerCase();
+    let hasMatch = false;
+
+    allBlocks.forEach(block=>{
+        const title = block.dataset.title.toLowerCase();
+        if(keyword === "" || title.includes(keyword)){
+            block.style.display = "block";
+            hasMatch = true;
+        }else{
+            block.style.display = "none";
+        }
+    })
+
+    emptyTip.style.display = hasMatch ? "none" : "block";
+}
+</script>
+</body>
+</html>
