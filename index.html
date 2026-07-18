@@ -1,139 +1,51 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>晓峰电商资料目录</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Microsoft YaHei,sans-serif;}
-body{background:#fff;padding:20px;}
-
-/* 居中标题 */
-h1{
-    text-align:center;
-    margin:30px 0;
-    font-size:32px;
-    color:#222;
-    font-weight:600;
-}
-
-/* 使用说明文字 */
-.tip-text{
-    width:95%;
-    margin:0 auto 20px;
-    font-size:15px;
-    color:#555;
-    line-height:1.6;
-}
-
-/* 搜索栏容器：输入框+按钮横向排列 */
-.search-wrap{
-    display:flex;
-    gap:10px;
-    max-width:100%;
-    margin:0 auto 30px;
-}
-#pageSearch{
-    flex:1;
-    padding:14px 16px;
-    border:2px solid #ffb300;
-    border-radius:6px;
-    font-size:18px;
-    outline:none;
-}
-#searchBtn{
-    padding:0 24px;
-    background:#ffb300;
-    border:none;
-    border-radius:6px;
-    font-size:16px;
-    cursor:pointer;
-}
-#searchBtn:hover{
-    background:#ffc107;
-}
-
-/* 课程列表项 */
-.course-item{
-  width: 95%;
-  background: #f7f8fa;
-  padding: 10px 12px;
-  margin: 3px 12px;
-  cursor: pointer;
-}
-.course-item a{
-    font-size:14px;
-    color:#1166cc;
-    text-decoration:none;
-}
-.course-item a:hover{
-    text-decoration:underline;
-}
-/* 无匹配提示 */
-.empty-tip{
-    font-size:18px;
-    color:#999;
-    text-align:center;
-    margin:40px 0;
-    display:none;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>晓峰资料库查询</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:"Microsoft Yahei",sans-serif;
+        }
+        body{
+            background:#f5f7fa;
+            padding:40px 20px;
+        }
+        .wrap{
+            width:85%;
+            max-width:1200px;
+            margin:0 auto;
+        }
+        h1{
+            text-align:center;
+            color:#222;
+            margin-bottom:30px;
+            font-size:30px;
+        }
+        .feishu-box{
+            background:#fff;
+            border-radius:10px;
+            padding:24px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+        iframe{
+            width:100%;
+            height:700px;
+            border:none;
+        }
+    </style>
 </head>
 <body>
-<h1>晓峰电商资料目录</h1>
-
-<div class="tip-text">
-<strong>使用方法：</strong>在下面的搜索框内输入课程名称或关键词点击搜索，点击课程名称即可打开对应课程详情txt文件。此处只是记录，真实文件购买后会在百度网盘里获取。
-</div>
-
-<div class="search-wrap">
-    <input type="text" id="pageSearch" placeholder="">
-    <button id="searchBtn">搜索</button>
-</div>
-
-<!-- 课程列表容器 -->
-<div id="courseList">
-    <!-- 课程1：链接指向同目录下txt文件 -->
-    <div class="course-item" data-title="淘宝自动发货模版">
-        <a href="https://acnbyg69r4k8.feishu.cn/share/base/query/shrcnrnTtjjyQ8aYbIY3kr4hWFg" target="_blank">▶ 淘宝自动发货模版</a>
+    <div class="wrap">
+        <h1>晓峰资料库目录</h1>
+        <div class="feishu-box">
+            <!-- 替换为你自己的飞书公开分享链接 -->
+            <iframe src="https://acnbyg69r4k8.feishu.cn/share/base/query/shrcnrnTtjjyQ8aYbIY3kr4hWFg"></iframe>
+        </div>
     </div>
-    <!-- 课程2 -->
-    <div class="course-item" data-title="小红书虚拟项目特训班9.0，AI原创PPT技术全跑通，单单品店月纯利润几个W">
-        <a href="小红书虚拟项目特训班9.0.txt" target="_blank">▶ 小红书虚拟项目特训班9.0，AI原创PPT技术全跑通，单单品店月纯利润几个W</a>
-    </div>
-</div>
-
-<div class="empty-tip" id="emptyTip">未找到匹配课程</div>
-
-<script>
-const searchInput = document.getElementById("pageSearch");
-const searchBtn = document.getElementById("searchBtn");
-const emptyTip = document.getElementById("emptyTip");
-const allBlocks = document.querySelectorAll(".course-item");
-
-// 点击按钮执行搜索
-searchBtn.addEventListener("click", doSearch);
-// 回车也可搜索
-searchInput.addEventListener("keydown", e=>{
-    if(e.key === "Enter") doSearch();
-})
-
-function doSearch(){
-    const keyword = searchInput.value.trim().toLowerCase();
-    let hasMatch = false;
-
-    allBlocks.forEach(block=>{
-        const title = block.dataset.title.toLowerCase();
-        if(keyword === "" || title.includes(keyword)){
-            block.style.display = "block";
-            hasMatch = true;
-        }else{
-            block.style.display = "none";
-        }
-    })
-
-    emptyTip.style.display = hasMatch ? "none" : "block";
-}
-</script>
 </body>
 </html>
